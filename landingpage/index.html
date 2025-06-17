@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BananaCare - Proposal Interaktif & Spesifikasi Teknis</title>
+    <!-- Chosen Palette: Eco-Tech Green & Yellow -->
+    <!-- Application Structure Plan: The SPA is structured into logical, thematic sections navigable via a sticky header. The flow is designed to guide the user from the high-level vision ("Why") to the technical details ("How"). It starts with a Hero section (Visi), followed by Masalah, Solusi, dan Manfaat (the core value proposition). The technical details are grouped under Spesifikasi Teknis, using tabs for Hardware, Software, and a key interactive "Kalkulator Storage". This structure prioritizes user journey and understanding over a rigid 1:1 mirror of the report, making complex information digestible and engaging. -->
+    <!-- Visualization & Content Choices: 
+        - Visi (1.1): Hero section with a strong headline. Goal: Inform. Method: HTML/CSS.
+        - Masalah (1.2): Icon-based cards for clarity. Goal: Inform. Method: HTML/CSS Flexbox.
+        - Solusi (1.3): Feature grid with hover effects. Goal: Engage. Method: HTML/CSS + JS.
+        - Manfaat (1.4): Checkmark-style list for easy scanning. Goal: Inform. Method: HTML/CSS.
+        - Arsitektur (2.1): Recreated diagram using HTML/CSS Grid for a clean, non-image representation. Goal: Organize. Method: HTML/CSS Grid.
+        - Tech Stack (2.3): Simple cards for visual grouping. Goal: Inform. Method: HTML/CSS Grid.
+        - Kebutuhan Storage (2.5): Interactive bar chart (Chart.js) and a JavaScript-powered calculator to estimate storage needs, turning static data into an engaging tool. Goal: Engage/Change. Method: Chart.js Canvas, HTML Form, JS.
+        - Perangkat & Server (2.4, 2.6): Tabbed interface to organize hardware specs without overwhelming the user. Goal: Organize/Compare. Method: HTML/CSS + JS for tab functionality.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .tab-button.active {
+            border-color: #facc15; /* yellow-400 */
+            color: #166534; /* green-800 */
+            background-color: #fefce8; /* yellow-50 */
+        }
+        .chart-container {
+            position: relative;
+            height: 350px;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        @media (max-width: 640px) {
+            .chart-container {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white/80 backdrop-blur-lg shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-4 lg:px-6 py-3">
+            <div class="flex justify-between items-center">
+                <a href="#hero" class="flex items-center gap-2">
+                    <span class="text-2xl font-bold text-green-800">BananaCare</span>
+                    <span class="text-xs bg-yellow-400 text-gray-900 font-semibold px-2 py-0.5 rounded-full">Proposal Interaktif</span>
+                </a>
+                <div class="hidden lg:flex items-center space-x-6 text-sm font-medium">
+                    <a href="#solusi" class="text-gray-600 hover:text-green-800 transition-colors">Solusi & Manfaat</a>
+                    <a href="#spesifikasi" class="text-gray-600 hover:text-green-800 transition-colors">Spesifikasi Teknis</a>
+                    <a href="#kalkulator" class="text-gray-600 hover:text-green-800 transition-colors">Kalkulator Storage</a>
+                </div>
+                <a href="#kontak" class="hidden lg:inline-block bg-green-700 text-white px-5 py-2 rounded-lg text-sm font-semibold hover:bg-green-800 transition-transform hover:scale-105">Hubungi Kami</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="relative bg-green-50 pt-16 pb-24">
+            <div class="container mx-auto px-4 lg:px-6 text-center">
+                <h1 class="text-4xl lg:text-6xl font-bold text-green-900 leading-tight">Merevolusi Agribisnis Pisang dengan <span class="text-yellow-500">Data</span> dan <span class="text-yellow-500">AI</span>.</h1>
+                <p class="mt-6 max-w-3xl mx-auto text-lg text-gray-600">Platform digital terintegrasi untuk memberdayakan petani dan pelaku agribisnis pisang, memungkinkan pengambilan keputusan yang lebih cepat, cerdas, dan menguntungkan.</p>
+                <div class="mt-10 flex justify-center gap-4">
+                    <a href="#solusi" class="bg-green-700 text-white px-8 py-3 rounded-lg text-base font-semibold hover:bg-green-800 transition-transform hover:scale-105">Lihat Solusi Kami</a>
+                    <a href="#spesifikasi" class="bg-white text-green-800 px-8 py-3 rounded-lg text-base font-semibold ring-1 ring-inset ring-gray-200 hover:bg-gray-50 transition-transform hover:scale-105">Spesifikasi Teknis</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Problems Section -->
+        <section id="masalah" class="py-20 bg-white">
+            <div class="container mx-auto px-4 lg:px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-green-900">Tantangan dalam Agribisnis Pisang Saat Ini</h2>
+                    <p class="mt-3 max-w-2xl mx-auto text-gray-600">Beberapa kendala utama yang menghambat potensi maksimal industri pisang di Indonesia.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-yellow-50/50 p-6 rounded-lg border border-yellow-200">
+                        <div class="text-3xl text-yellow-500 mb-3">🕒</div>
+                        <h3 class="font-semibold text-lg text-gray-800">Monitoring Manual</h3>
+                        <p class="text-gray-600 mt-1 text-sm">Pemantauan yang lambat dan tidak konsisten, meningkatkan risiko gagal panen akibat penyakit yang tidak terdeteksi dini.</p>
+                    </div>
+                    <div class="bg-yellow-50/50 p-6 rounded-lg border border-yellow-200">
+                        <div class="text-3xl text-yellow-500 mb-3">📂</div>
+                        <h3 class="font-semibold text-lg text-gray-800">Data Terfragmentasi</h3>
+                        <p class="text-gray-600 mt-1 text-sm">Pencatatan yang tidak terstruktur menyulitkan analisis performa dan perencanaan siklus tanam berikutnya.</p>
+                    </div>
+                    <div class="bg-yellow-50/50 p-6 rounded-lg border border-yellow-200">
+                        <div class="text-3xl text-yellow-500 mb-3">🚚</div>
+                        <h3 class="font-semibold text-lg text-gray-800">Distribusi "Kotak Hitam"</h3>
+                        <p class="text-gray-600 mt-1 text-sm">Kurangnya visibilitas pada proses pengiriman hasil panen, tanpa informasi posisi dan estimasi waktu yang akurat.</p>
+                    </div>
+                    <div class="bg-yellow-50/50 p-6 rounded-lg border border-yellow-200">
+                        <div class="text-3xl text-yellow-500 mb-3">📉</div>
+                        <h3 class="font-semibold text-lg text-gray-800">Estimasi Tidak Akurat</h3>
+                        <p class="text-gray-600 mt-1 text-sm">Kesulitan memperkirakan jumlah dan waktu panen, yang menyulitkan perencanaan penjualan dan logistik.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Solution & Benefits Section -->
+        <section id="solusi" class="py-20 bg-green-50">
+            <div class="container mx-auto px-4 lg:px-6">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <h2 class="text-3xl font-bold text-green-900">Solusi & Manfaat Platform BananaCare</h2>
+                        <p class="mt-4 text-gray-600">Platform kami menyediakan fitur komprehensif yang dirancang untuk memberikan keuntungan signifikan bagi bisnis Anda.</p>
+                        <ul class="mt-8 space-y-4">
+                            <li class="flex items-start gap-3">
+                                <span class="flex-shrink-0 mt-1 w-5 h-5 rounded-full bg-yellow-400 text-gray-900 flex items-center justify-center text-xs font-bold">✔</span>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Peningkatan Produktivitas</h4>
+                                    <p class="text-gray-600 text-sm">Deteksi dini penyakit dan status tanaman memungkinkan intervensi cepat untuk menekan risiko gagal panen.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="flex-shrink-0 mt-1 w-5 h-5 rounded-full bg-yellow-400 text-gray-900 flex items-center justify-center text-xs font-bold">✔</span>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Efisiensi Biaya Operasional</h4>
+                                    <p class="text-gray-600 text-sm">Optimalisasi jadwal pemupukan dan perawatan berdasarkan data akurat mengurangi pemborosan.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="flex-shrink-0 mt-1 w-5 h-5 rounded-full bg-yellow-400 text-gray-900 flex items-center justify-center text-xs font-bold">✔</span>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Pengambilan Keputusan Berbasis Data</h4>
+                                    <p class="text-gray-600 text-sm">Laporan dan riwayat yang terstruktur membantu merencanakan siklus tanam berikutnya dengan lebih efektif.</p>
+                                </div>
+                            </li>
+                             <li class="flex items-start gap-3">
+                                <span class="flex-shrink-0 mt-1 w-5 h-5 rounded-full bg-yellow-400 text-gray-900 flex items-center justify-center text-xs font-bold">✔</span>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Transparansi Rantai Pasok</h4>
+                                    <p class="text-gray-600 text-sm">Meningkatkan kepercayaan dengan menyediakan visibilitas penuh pada alur distribusi produk.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-lg transition-shadow">
+                            <h3 class="font-bold text-green-800">Dashboard Terpusat</h3>
+                            <p class="text-sm mt-1 text-gray-500">Visualisasi semua lahan dalam satu peta interaktif.</p>
+                        </div>
+                         <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-lg transition-shadow">
+                            <h3 class="font-bold text-green-800">Pemetaan GIS</h3>
+                            <p class="text-sm mt-1 text-gray-500">Detail riwayat tanam, pupuk, dan panen per lahan.</p>
+                        </div>
+                         <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-lg transition-shadow">
+                            <h3 class="font-bold text-green-800">Monitoring AI</h3>
+                            <p class="text-sm mt-1 text-gray-500">Analisis umur, tinggi, dan status buah dari gambar kamera.</p>
+                        </div>
+                         <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-lg transition-shadow">
+                            <h3 class="font-bold text-green-800">Pelacakan Distribusi</h3>
+                            <p class="text-sm mt-1 text-gray-500">Pantau pergerakan armada secara real-time.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Technical Specifications Section -->
+        <section id="spesifikasi" class="py-20 bg-white">
+            <div class="container mx-auto px-4 lg:px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-green-900">Spesifikasi Teknis BananaCare</h2>
+                    <p class="mt-3 max-w-2xl mx-auto text-gray-600">Rincian arsitektur, teknologi, dan kebutuhan infrastruktur untuk implementasi sistem.</p>
+                </div>
+                
+                <!-- Architecture -->
+                <div class="bg-gray-50 rounded-lg p-8 mb-12">
+                     <h3 class="text-2xl font-semibold text-center text-green-900 mb-6">Arsitektur Sistem & Alur Data</h3>
+                     <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-center text-center text-sm font-medium">
+                        <div class="bg-white p-4 rounded-lg shadow-sm">Kamera di Lahan</div>
+                        <div class="text-2xl text-gray-400">→</div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm">Layanan AI/ML</div>
+                        <div class="text-2xl text-gray-400">→</div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm">
+                            <div class="grid grid-cols-3 items-center">
+                                <div>Frontend</div>
+                                <div class="text-xl">↔</div>
+                                <div>Backend</div>
+                            </div>
+                            <div class="text-xl text-gray-400">↓</div>
+                            <div>Database</div>
+                        </div>
+                     </div>
+                </div>
+                
+                <!-- Tabs for Hardware, Software, etc. -->
+                <div>
+                    <div class="border-b border-gray-200 mb-8">
+                        <nav class="flex justify-center -mb-px space-x-2 sm:space-x-8" aria-label="Tabs">
+                            <button class="tab-button active whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-gray-500 hover:border-gray-300" data-tab="tech-stack">Tumpukan Teknologi</button>
+                            <button class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-gray-500 hover:border-gray-300" data-tab="hardware">Perangkat Keras</button>
+                            <button class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-gray-500 hover:border-gray-300" data-tab="server">Spesifikasi Server</button>
+                        </nav>
+                    </div>
+
+                    <div id="tab-content">
+                        <!-- Tech Stack Content -->
+                        <div id="tech-stack" class="tab-pane active">
+                            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 text-center">
+                                <div class="bg-gray-50 p-4 rounded-lg"><h4 class="font-semibold">Frontend</h4><p class="text-gray-600 text-sm">HTML, CSS, JS, Leaflet.js</p></div>
+                                <div class="bg-gray-50 p-4 rounded-lg"><h4 class="font-semibold">Backend</h4><p class="text-gray-600 text-sm">Node.js, Express.js</p></div>
+                                <div class="bg-gray-50 p-4 rounded-lg"><h4 class="font-semibold">Database</h4><p class="text-gray-600 text-sm">PostgreSQL, PostGIS</p></div>
+                                <div class="bg-gray-50 p-4 rounded-lg"><h4 class="font-semibold">AI/ML</h4><p class="text-gray-600 text-sm">Python, TensorFlow/PyTorch</p></div>
+                                <div class="bg-gray-50 p-4 rounded-lg"><h4 class="font-semibold">Infrastruktur</h4><p class="text-gray-600 text-sm">AWS/Google Cloud/Azure</p></div>
+                            </div>
+                        </div>
+
+                        <!-- Hardware Content -->
+                        <div id="hardware" class="tab-pane hidden">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="bg-green-50/60 p-6 rounded-lg">
+                                    <h4 class="font-bold text-green-900">Kamera Pengawas</h4>
+                                    <ul class="mt-2 space-y-1 text-sm text-gray-700 list-disc list-inside">
+                                        <li>4 unit per Hektar</li>
+                                        <li>Resolusi Full HD 1080p</li>
+                                        <li>Tahan Cuaca (IP66+)</li>
+                                        <li>Night Vision (IR)</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-yellow-50/60 p-6 rounded-lg">
+                                    <h4 class="font-bold text-yellow-900">Listrik Off-Grid</h4>
+                                    <ul class="mt-2 space-y-1 text-sm text-gray-700 list-disc list-inside">
+                                        <li>Panel Surya 100-150 WP</li>
+                                        <li>Baterai 50-100Ah 12V</li>
+                                        <li>Solar Charge Controller</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-blue-50/60 p-6 rounded-lg">
+                                    <h4 class="font-bold text-blue-900">Konektivitas Internet</h4>
+                                    <ul class="mt-2 space-y-1 text-sm text-gray-700 list-disc list-inside">
+                                        <li>Modem 4G LTE Outdoor</li>
+                                        <li>Antena Eksternal</li>
+                                        <li>Paket Data >50 GB/bulan</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Server Content -->
+                        <div id="server" class="tab-pane hidden">
+                             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="bg-gray-100 p-6 rounded-lg">
+                                    <h4 class="font-bold text-gray-800">Server Aplikasi & DB</h4>
+                                    <ul class="mt-2 space-y-1 text-sm text-gray-700">
+                                        <li><strong>Tipe:</strong> AWS t2.medium / setara</li>
+                                        <li><strong>CPU:</strong> 2 vCPU</li>
+                                        <li><strong>RAM:</strong> 4 GB</li>
+                                        <li><strong>Storage:</strong> 200 GB SSD</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-gray-100 p-6 rounded-lg">
+                                    <h4 class="font-bold text-gray-800">Server Analisis AI</h4>
+                                     <ul class="mt-2 space-y-1 text-sm text-gray-700">
+                                        <li><strong>Tipe:</strong> AWS g4dn.xlarge / setara</li>
+                                        <li><strong>GPU:</strong> Wajib (NVIDIA T4 / lebih)</li>
+                                        <li><strong>RAM:</strong> 16 GB</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-gray-100 p-6 rounded-lg">
+                                    <h4 class="font-bold text-gray-800">Object Storage (Gambar)</h4>
+                                     <ul class="mt-2 space-y-1 text-sm text-gray-700">
+                                        <li><strong>Layanan:</strong> AWS S3 / setara</li>
+                                        <li><strong>Kapasitas Awal:</strong> 1 TB</li>
+                                        <li><strong>Fitur:</strong> Auto-scaling</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Storage Calculator Section -->
+        <section id="kalkulator" class="py-20 bg-yellow-50/70">
+            <div class="container mx-auto px-4 lg:px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-green-900">Kalkulator Kebutuhan Penyimpanan</h2>
+                    <p class="mt-3 max-w-2xl mx-auto text-gray-600">Gunakan alat interaktif ini untuk memperkirakan kebutuhan penyimpanan data gambar berdasarkan jumlah lahan yang Anda kelola.</p>
+                </div>
+
+                <div class="grid lg:grid-cols-5 gap-8 items-center">
+                    <div class="lg:col-span-2 bg-white p-8 rounded-lg shadow-md">
+                        <div class="mb-6">
+                            <label for="lahanCount" class="block text-sm font-medium text-gray-700">Jumlah Lahan (Hektar)</label>
+                            <input type="number" id="lahanCount" value="1" min="1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
+                        </div>
+                        <p class="text-xs text-gray-500 mb-4">Asumsi: 4 kamera/lahan, 1 gambar/menit, ukuran 1MB/gambar.</p>
+                        
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-baseline">
+                                <span class="text-gray-600">Per Hari:</span>
+                                <span id="storage-day" class="font-bold text-lg text-green-800">5.76 GB</span>
+                            </div>
+                            <div class="flex justify-between items-baseline">
+                                <span class="text-gray-600">Per Bulan:</span>
+                                <span id="storage-month" class="font-bold text-lg text-green-800">172.8 GB</span>
+                            </div>
+                             <div class="flex justify-between items-baseline">
+                                <span class="text-gray-600">Per Tahun:</span>
+                                <span id="storage-year" class="font-bold text-xl text-yellow-600">2.07 TB</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-3">
+                        <div class="chart-container">
+                            <canvas id="storageChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Tab switching logic
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabPanes = document.querySelectorAll('.tab-pane');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabId = button.getAttribute('data-tab');
+
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    tabPanes.forEach(pane => {
+                        if (pane.id === tabId) {
+                            pane.classList.remove('hidden');
+                            pane.classList.add('active');
+                        } else {
+                            pane.classList.add('hidden');
+                            pane.classList.remove('active');
+                        }
+                    });
+                });
+            });
+
+            // Storage Calculator Logic
+            const lahanInput = document.getElementById('lahanCount');
+            const storageDayEl = document.getElementById('storage-day');
+            const storageMonthEl = document.getElementById('storage-month');
+            const storageYearEl = document.getElementById('storage-year');
+            
+            const storagePerLahan = {
+                day: 5.76, // GB
+                month: 172.8, // GB
+                year: 2073.6 // GB -> 2.07 TB
+            };
+
+            const updateStorage = () => {
+                const count = parseInt(lahanInput.value) || 1;
+                
+                const daily = (storagePerLahan.day * count).toFixed(2);
+                const monthly = (storagePerLahan.month * count).toFixed(2);
+                const yearly = (storagePerLahan.year * count);
+
+                storageDayEl.textContent = `${daily} GB`;
+                storageMonthEl.textContent = `${monthly} GB`;
+                
+                if (yearly < 1000) {
+                   storageYearEl.textContent = `${yearly.toFixed(2)} GB`;
+                } else {
+                   storageYearEl.textContent = `${(yearly / 1024).toFixed(2)} TB`;
+                }
+            };
+
+            lahanInput.addEventListener('input', updateStorage);
+
+            // Chart.js Logic
+            const ctx = document.getElementById('storageChart').getContext('2d');
+            const storageChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Per Jam', 'Per Hari', 'Per Bulan', 'Per Tahun'],
+                    datasets: [{
+                        label: 'Kebutuhan Storage per Lahan (GB)',
+                        data: [0.24, 5.76, 172.8, 2073.6], // Data in GB
+                        backgroundColor: [
+                            'rgba(250, 204, 21, 0.6)', // yellow-400
+                            'rgba(132, 204, 22, 0.6)', // lime-500
+                            'rgba(34, 197, 94, 0.6)', // green-500
+                            'rgba(22, 101, 52, 0.6)'  // green-800
+                        ],
+                        borderColor: [
+                            'rgba(250, 204, 21, 1)',
+                            'rgba(132, 204, 22, 1)',
+                            'rgba(34, 197, 94, 1)',
+                            'rgba(22, 101, 52, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            type: 'logarithmic',
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Gigabytes (GB) - Skala Logaritmik'
+                            },
+                             ticks: {
+                                callback: function(value, index, values) {
+                                    if (value === 1000) return "1 TB";
+                                    if (value === 100) return "100 GB";
+                                    if (value === 10) return "10 GB";
+                                    if (value === 1) return "1 GB";
+                                    return null;
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Pertumbuhan Kebutuhan Storage per Lahan'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    let value = context.parsed.y;
+                                    if (value >= 1024) {
+                                        return `${(value/1024).toFixed(2)} TB`;
+                                    }
+                                    return `${value} GB`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
